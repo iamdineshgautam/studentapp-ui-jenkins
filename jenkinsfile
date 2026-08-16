@@ -53,24 +53,24 @@ pipeline {
             }
         }
 
-        // stage('Docker Build') {
-        //     steps {
-        //         sh '''
-        //         docker build --no-cache -t studentapp:v1 .
-        //         docker images
-        //         '''
-        //     }
-        // }
+        stage('Docker Build') {
+            steps {
+                sh '''
+                docker build --no-cache -t studentapp:v1 .
+                docker images
+                '''
+            }
+        }
 
-        // stage('push image to ECR') {
-        //     steps {
-        //         sh '''
-        //         aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 231101979902.dkr.ecr.ap-south-1.amazonaws.com
-        //         docker tag studentapp:latest 231101979902.dkr.ecr.ap-south-1.amazonaws.com/studentapp:latest
-        //         docker push 231101979902.dkr.ecr.ap-south-1.amazonaws.com/studentapp:latest
-        //         '''
-        //     }
-        // }
+        stage('push image to ECR') {
+            steps {
+                sh '''
+                aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 231101979902.dkr.ecr.ap-south-1.amazonaws.com
+                docker tag studentapp:latest 231101979902.dkr.ecr.ap-south-1.amazonaws.com/studentapp:latest
+                docker push 231101979902.dkr.ecr.ap-south-1.amazonaws.com/studentapp:latest
+                '''
+            }
+        }
 
         // stage('Deploy to EKS') {
         //     steps {
