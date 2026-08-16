@@ -1,0 +1,50 @@
+pipeline {
+    agent {
+        label 'worker'
+    }
+
+    tools {
+        terraform 'terraform'
+    }
+
+    environment {
+        my_aws_cred = credentials('aws-cred')
+    }
+
+    stages {
+        stage('checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/iamdineshgautam/studentapp-ui-jenkins.git'
+            }
+        }
+
+        stage('Terraform - INIT') {
+            steps {
+                sh 'terraform init'
+            }
+        }
+
+        stage('Terraform - VALIDATE') {
+            steps {
+                sh 'terraform validate'
+            }
+        }
+
+        stage('Terraform - PLAN') {
+            steps {
+                sh 'terraform plan'
+            }
+        }
+
+        // stage('Terraform - destroy') {
+        //     steps {
+        //         sh 'terraform destroy -auto-approve'
+        //     }
+        // }
+        stage('Terraform - APPLY') {
+            steps {
+                sh 'terraform apply -auto-approve'
+            }
+        }
+    }
+}
