@@ -72,18 +72,18 @@ pipeline {
             }
         }
 
-        // stage('Deploy to EKS') {
-        //     steps {
-        //         sh '''
-        //         aws eks update-kubeconfig --region us-east-2 --name my-cluster-mayur
-        //         sudo snap install kubectl --classic
-        //         kubectl apply -f k8s/
-        //         kubectl get pods 
-        //         sleep 10
-        //         kubectl get pods
-        //         kubectl get svc -o wide
-        //         '''
-        //     }
-        // }
+        stage('Deploy to EKS') {
+            steps {
+                sh '''
+                aws eks update-kubeconfig --region ap-south-1 --name my-cluster-dinesh
+                sudo snap install kubectl --classic
+                kubectl apply -f k8s/
+                kubectl get pods 
+                sleep 10
+                kubectl get pods
+                kubectl get svc -o wide
+                '''
+            }
+        }
     }
 }
